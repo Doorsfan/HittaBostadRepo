@@ -1,17 +1,23 @@
-import { Navbar } from "@/components/Navbar";
-import { Hero } from "@/components/Hero";
-import { Features } from "@/components/Features";
-import { CTA } from "@/components/CTA";
-import { Footer } from "@/components/Footer";
+import { useState } from 'react';
+import { Header } from '@/components/Header';
+import { Hero } from '@/components/Hero';
+import { ProductCatalog } from '@/components/ProductCatalog';
+import { Footer } from '@/components/Footer';
+import type { Shoe } from '@/data/shoes';
 
 function App() {
+  const [cartItems, setCartItems] = useState<Shoe[]>([]);
+
+  const handleAddToCart = (shoe: Shoe) => {
+    setCartItems((prev) => [...prev, shoe]);
+  };
+
   return (
-    <div className="min-h-screen">
-      <Navbar />
-      <main className="pt-16">
+    <div className="min-h-screen bg-white">
+      <Header cartCount={cartItems.length} />
+      <main>
         <Hero />
-        <Features />
-        <CTA />
+        <ProductCatalog onAddToCart={handleAddToCart} />
       </main>
       <Footer />
     </div>
